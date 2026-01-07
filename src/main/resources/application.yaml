@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: HospitalManagement
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/Hospital
+    username: postgres
+    password: ${DB_PASSWORD:13102002}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8081
