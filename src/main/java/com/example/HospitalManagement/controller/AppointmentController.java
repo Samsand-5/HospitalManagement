@@ -18,8 +18,8 @@ public class AppointmentController {
     @Autowired
     private AppointmentService service;
 
-    @PostMapping
-    @PreAuthorize("hasAnyRole('PATIENT','DOCTOR')")
+    @PostMapping("/requestForAppointment")
+    //@PreAuthorize("hasAnyRole('PATIENT','DOCTOR')")
     public Appointment book(@Valid @RequestBody AppointmentRequest request) {
         return service.book(request.doctorId(), request.appointmentTime());
     }

@@ -12,9 +12,8 @@ import lombok.Setter;
 @Setter
 public class Doctor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
 
     private boolean available;
 }
