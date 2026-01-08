@@ -31,7 +31,7 @@ public class PatientController {
     }
 
     // ADMIN / PATIENT: Get patient by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getPatient/{id}")
     //@PreAuthorize("hasAnyRole('ADMIN','PATIENT')")
     public Patient getPatient(@PathVariable Long id) {
         return patientService.getPatientById(id);

@@ -31,13 +31,13 @@ public class DoctorController {
         return doctorService.updateAvailability(id, available);
     }
 
-    @GetMapping
+    @GetMapping("/getAllDoctors")
     //@PreAuthorize("hasAnyRole('ADMIN','DOCTOR','PATIENT')")
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getDoctor/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','PATIENT')")
     public Doctor getDoctor(@PathVariable Long id) {
         return doctorService.getDoctorById(id);
