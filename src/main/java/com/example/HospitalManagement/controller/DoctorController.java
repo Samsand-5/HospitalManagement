@@ -17,13 +17,13 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @PostMapping("/addDoctor")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Doctor createDoctor(@Valid @RequestBody Doctor doctor) {
         return doctorService.createDoctor(doctor);
     }
 
     @PatchMapping("/{id}/availability")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('DOCTOR')")
     public Doctor updateAvailability(
             @PathVariable Long id,
             @RequestParam boolean available
@@ -32,7 +32,7 @@ public class DoctorController {
     }
 
     @GetMapping("/getAllDoctors")
-    //@PreAuthorize("hasAnyRole('ADMIN','DOCTOR','PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','PATIENT')")
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
     }

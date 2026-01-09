@@ -18,22 +18,22 @@ public class PatientController {
 
     // PATIENT: Register profile
     @PostMapping("/addPatient")
-    //@PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasRole('PATIENT')")
     public Patient register(@Valid @RequestBody Patient patient) {
         return patientService.registerPatient(patient);
     }
 
     // ADMIN: Get all patients
     @GetMapping("/getAllPatients")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN','DOCTOR')")
     public List<Patient> getAllPatients() {
         return patientService.getAllPatients();
     }
 
     // ADMIN / PATIENT: Get patient by ID
     @GetMapping("/getPatient/{id}")
-    //@PreAuthorize("hasAnyRole('ADMIN','PATIENT')")
-    public Patient getPatient(@PathVariable Long id) {
+    @PreAuthorize("hasAnyRole('ADMIN','PATIENT')")
+    public Patient getPatientById(@PathVariable Long id) {
         return patientService.getPatientById(id);
     }
 }

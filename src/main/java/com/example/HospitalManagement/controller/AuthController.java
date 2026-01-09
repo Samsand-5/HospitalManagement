@@ -1,8 +1,10 @@
 package com.example.HospitalManagement.controller;
 
-import com.example.HospitalManagement.enums.Role;
-import com.example.HospitalManagement.service.AuthResponse;
+import com.example.HospitalManagement.dto.LoginRequest;
+import com.example.HospitalManagement.dto.RegisterRequest;
 import com.example.HospitalManagement.service.AuthService;
+import com.example.HospitalManagement.service.AuthResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,25 +15,33 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    // ---------------- REGISTER ----------------
     @PostMapping("/register")
-    public void register(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam Role role
-    ) {
-        authService.register(username, password, role);
+    public String register(@Valid @RequestBody RegisterRequest request) {
+
+        authService.register(
+                request.getUsername(),
+                request.getPassword(),
+                request.getRole()
+        );
+
+        return "User registered successfully";
     }
 
+    // ---------------- LOGIN ----------------
     @PostMapping("/login")
-    public AuthResponse login(
-            @RequestParam String username,
-            @RequestParam String password
-    ) {
-        return authService.login(username, password);
+    public AuthResponse login(@Valid @RequestBody LoginRequest request) {
+
+        return authService.login(
+                request.getUsername(),
+                request.getPassword()
+        );
     }
 
+    // ---------------- REFRESH TOKEN ----------------
     @PostMapping("/refresh")
     public AuthResponse refresh(@RequestParam String refreshToken) {
+
         return authService.refresh(refreshToken);
     }
 }
