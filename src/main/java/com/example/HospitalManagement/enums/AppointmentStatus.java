@@ -1,4 +1,4 @@
-package com.example.HospitalManagement.entity.enums;
+package com.example.HospitalManagement.enums;
 
 public enum AppointmentStatus {
     BOOKED,

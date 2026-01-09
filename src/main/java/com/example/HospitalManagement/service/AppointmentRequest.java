@@ -1,4 +1,4 @@
-package com.example.HospitalManagement.entity.records;
+package com.example.HospitalManagement.service;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

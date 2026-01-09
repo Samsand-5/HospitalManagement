@@ -1,11 +1,10 @@
 package com.example.HospitalManagement.controller;
 
 import com.example.HospitalManagement.entity.Appointment;
-import com.example.HospitalManagement.entity.records.AppointmentRequest;
+import com.example.HospitalManagement.service.AppointmentRequest;
 import com.example.HospitalManagement.service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
 package com.example.HospitalManagement.entity;
 
-import com.example.HospitalManagement.entity.enums.AppointmentStatus;
+import com.example.HospitalManagement.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import lombok.Getter;
