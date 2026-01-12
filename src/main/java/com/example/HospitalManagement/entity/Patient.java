@@ -23,6 +23,10 @@ public class Patient {
     @Past
     private LocalDate dob;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;  // <- THIS is required for findByUser
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 }

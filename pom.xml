@@ -63,11 +63,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
+
 		<!-- JJWT API -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

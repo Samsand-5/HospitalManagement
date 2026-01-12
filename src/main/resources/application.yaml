@@ -13,11 +13,8 @@ spring:
       ddl-auto: update
     show-sql: true
 
-    jwt:
-      secret: hospital_management_jwt_secret_key_256_bits_long_secure
-
-
 server:
   port: 8081
 
-
+jwt:
+  secret: hospital_management_jwt_secret_key_256_bits_long_secure
