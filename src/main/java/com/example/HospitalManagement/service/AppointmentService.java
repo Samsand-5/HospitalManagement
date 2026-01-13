@@ -4,6 +4,7 @@ import com.example.HospitalManagement.entity.Appointment;
 import com.example.HospitalManagement.entity.Doctor;
 import com.example.HospitalManagement.entity.Patient;
 import com.example.HospitalManagement.entity.User;
+import com.example.HospitalManagement.enums.AppointmentStatus;
 import com.example.HospitalManagement.repository.AppointmentRepository;
 import com.example.HospitalManagement.repository.DoctorRepository;
 import com.example.HospitalManagement.repository.PatientRepository;
@@ -72,4 +73,57 @@ public class AppointmentService {
 
         return appointmentRepo.save(appointment);
     }
+
+    @Transactional
+    public Appointment cancelAppointment(Long appointmentId) {
+
+        // Get logged-in username from JWT
+        String username = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
+
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Appointment appointment = appointmentRepo.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        // ---- Authorization checks ----
+
+        // Patient ownership
+        boolean isPatientOwner = patientRepo.findByUser(user)
+                .map(p -> p.getId().equals(appointment.getPatient().getId()))
+                .orElse(false);
+
+        // Doctor ownership (NO repository call needed)
+        boolean isDoctorOwner =
+                appointment.getDoctor()
+                        .getUser()
+                        .getId()
+                        .equals(user.getId());
+
+        if (!isPatientOwner && !isDoctorOwner) {
+            throw new RuntimeException("You are not authorized to cancel this appointment");
+        }
+
+        // ---- Business rules ----
+        if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
+            throw new RuntimeException("Appointment already cancelled");
+        }
+
+        if (appointment.getAppointmentTime().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Past appointments cannot be cancelled");
+        }
+
+        // ---- Cancel ----
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+
+        // Free doctor slot
+        Doctor doctor = appointment.getDoctor();
+        doctor.setAvailable(true);
+
+        return appointmentRepo.save(appointment);
+    }
+
+
 }
